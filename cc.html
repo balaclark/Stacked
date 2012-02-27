@@ -17,8 +17,8 @@
 <script src="js/cc.js"></script>
 
 <script id="card" type="text/html">
-<div class="{{ type.toLowerCase }} card {{ suite }} num-{{ number }} {{ number }}-{{ suite }}">
-	{{ number }}
+<div class="{{ type.toLowerCase }} card {{ suit }} num-{{ value }} {{ value }}-{{ suit }}">
+	{{ value }}
 </div>
 </script>
 
@@ -29,9 +29,15 @@
 </script>
 
 <script>
+
+var game;
+
 $(function () {
 
-	var game = new Stacked.View.Game ({
+	game = new Stacked.View.Game ({
+
+		parentEl: '#stacked',
+
 		model: new Stacked.Model.Game({
 			deck: new Stacked.Model.Deck({
 				type: 'Spanish',
@@ -45,7 +51,7 @@ $(function () {
 		})
 	});
 
-	game.render('#stacked')
+	game.render();
 
 });
 </script>

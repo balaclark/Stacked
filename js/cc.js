@@ -16,22 +16,22 @@ Stacked.Collection = {};
 	Stacked.Model.Type.Base = Backbone.Model.extend({
 		defaults: {
 			cards: [],
-			suites: []
+			suits: []
 		}
 	});
 
 	Stacked.Model.Type.Spanish = Stacked.Model.Type.Base.extend({
 		defaults: {
 			cards: [1, 2, 3, 4, 5, 6, 7, 10, 11, 12],
-			suites: ['cups', 'clubs', 'coins', 'swords']
+			suits: ['cups', 'clubs', 'coins', 'swords']
 		}
 	});
 
 	Stacked.Model.Card = Backbone.Model.extend({
 		defaults: {
 			type: '',
-			suite: '',
-			number: 0
+			suit: '',
+			value: 0
 		}
 	});
 
@@ -64,9 +64,9 @@ Stacked.Collection = {};
 				cards = new Stacked.Collection.Cards()
 
 			for (var i = 0; i < this.get('decks'); i++) {
-				_.each(set.get('suites'), function (suite) {
+				_.each(set.get('suits'), function (suit) {
 					_.each(set.get('cards'), function (card) {
-						cards.add({ type: type, suite: suite, number: card });
+						cards.add({ type: type, suit: suit, value: card });
 					});
 				});
 			}
@@ -97,10 +97,12 @@ Stacked.Collection = {};
 	});
 
 	Stacked.Model.Player = Backbone.Model.extend({
+
 		defaults: {
 			name: '',
 			hand: null,
 		},
+
 		initialize: function () {
 			this.set('hand', new Stacked.Collection.Hand());
 		}
@@ -186,15 +188,26 @@ Stacked.Collection = {};
 
 	Stacked.View.Game = Backbone.View.extend({
 
-		render: function (elm) {
+		players: [],
 
-			var el = this.el;
+		initialize: function () {
+
+			var el = this.el,
+				players = [];
 
 			this.model.get('players').each(function (player) {
-				(new Stacked.View.Player({ el: el, model: player })).render();
+				players.push(new Stacked.View.Player({ el: el, model: player }));
 			});
 
-			$(elm).html(this.el);
+			this.players = players;
+		},
+
+		render: function (elm) {
+			this.$el.empty();
+			_.each(this.players, function (player) {
+				player.render();
+			});
+			$(this.options.parentEl).html(this.el);
 		}
 	});
 
