@@ -1,25 +1,31 @@
 
-var Stacked = { Type: {}, Deck: null };
+var Stacked = {};
+Stacked.Model = { Type: {}, Deck: null };
+Stacked.View = {};
 
-(function () {
+(function ($) {
 
 	'use strict';
 
-	Stacked.Type.Base = Backbone.Model.extend({
+	/*
+	 * Models
+	 */
+
+	Stacked.Model.Type.Base = Backbone.Model.extend({
 		defaults: {
 			cards: [],
 			suites: []
 		}
 	});
 
-	Stacked.Type.Spanish = Stacked.Type.Base.extend({
+	Stacked.Model.Type.Spanish = Stacked.Model.Type.Base.extend({
 		defaults: {
 			cards: [1, 2, 3, 4, 5, 6, 7, 10, 11, 12],
 			suites: ['cups', 'clubs', 'coins', 'swords']
 		}
 	});
 
-	Stacked.Card = Backbone.Model.extend({
+	Stacked.Model.Card = Backbone.Model.extend({
 		defaults: {
 			type: '',
 			suite: '',
@@ -27,11 +33,11 @@ var Stacked = { Type: {}, Deck: null };
 		}
 	});
 
-	Stacked.Cards = Backbone.Collection.extend({
-		model: Stacked.Card
+	Stacked.Model.Cards = Backbone.Collection.extend({
+		model: Stacked.Model.Card
 	});
 
-	Stacked.Deck = Backbone.Model.extend({
+	Stacked.Model.Deck = Backbone.Model.extend({
 
 		defaults: {
 			decks: 1,
@@ -41,8 +47,8 @@ var Stacked = { Type: {}, Deck: null };
 		initialize: function () {
 
 			var type = this.get('type'),
-				set = new Stacked.Type[type](),
-				cards = new Stacked.Cards()
+				set = new Stacked.Model.Type[type](),
+				cards = new Stacked.Model.Cards()
 
 			this.set({ set: set });
 
@@ -69,4 +75,12 @@ var Stacked = { Type: {}, Deck: null };
 		}
 	});
 
-})();
+	/*
+	 * Views
+	 */
+	 Stacked.View.Card = Backbone.View.extend({
+	 	render: function () {
+	 		this.$el.append(ich.card(this.model.toJSON()));
+	 	}
+	 });
+})(jQuery);

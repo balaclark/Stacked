@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="css/lib/normalize.css">
 <link rel="stylesheet" href="css/cc.css">
 
-<div id="cc"></div>
+<div id="stacked"></div>
 
 <script src="js/lib/jquery-1.7.1.min.js"></script>
 <script src="js/lib/json2.js"></script>
@@ -15,3 +15,26 @@
 <script src="js/lib/backbone-min.js"></script>
 <script src="js/lib/ICanHaz.min.js"></script>
 <script src="js/cc.js"></script>
+
+<script id="card" type="text/html">
+<div class="{{ type.toLowerCase }} card {{ suite }} card-{{ card }} {{ card }}-{{ suite }}">
+	{{ card }}
+</div>
+</script>
+
+<script>
+$(function () {
+
+	var deck = new Stacked.Model.Deck({
+		type: 'Spanish',
+		decks: 2
+	});
+
+	//deck.shuffle();
+
+	deck.get('cards').each(function(card) {
+		(new Stacked.View.Card({ el: '#stacked', model: card })).render();
+	});
+
+});
+</script>

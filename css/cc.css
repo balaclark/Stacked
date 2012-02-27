@@ -1,0 +1,29 @@
+#stacked {
+	font-size: 8px;
+}
+
+#stacked .card {
+	display: inline-block;
+	width: 25px;
+	border-radius: 3px;
+	border: solid 1px grey;
+	margin: 3px;
+	padding: 10px 0;
+	text-align: center;
+}
+
+.spanish.card.cups {
+	background-color: grey;
+}
+
+.spanish.card.clubs {
+	background-color: green;
+}
+
+.spanish.card.coins {
+	background-color: gold;
+}
+
+.spanish.card.swords {
+	background-color: blue;
+}
