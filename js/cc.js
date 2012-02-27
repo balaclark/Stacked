@@ -41,8 +41,8 @@ var Stacked = { Type: {}, Deck: null };
 		initialize: function () {
 
 			var type = this.get('type'),
-				set  = new Stacked.Type[type](),
-				cards = new Stacked.Cards();
+				set = new Stacked.Type[type](),
+				cards = new Stacked.Cards()
 
 			this.set({ set: set });
 
@@ -55,6 +55,17 @@ var Stacked = { Type: {}, Deck: null };
 			}
 
 			this.set({ cards: cards });
+		},
+
+		shuffle: function () {
+
+			var cards = [];
+
+			this.get('cards').shuffle().forEach(function (card) {
+				cards.push(card);
+			});
+
+			this.get('cards').reset(cards);
 		}
 	});
 
