@@ -17,24 +17,35 @@
 <script src="js/cc.js"></script>
 
 <script id="card" type="text/html">
-<div class="{{ type.toLowerCase }} card {{ suite }} card-{{ card }} {{ card }}-{{ suite }}">
-	{{ card }}
+<div class="{{ type.toLowerCase }} card {{ suite }} num-{{ number }} {{ number }}-{{ suite }}">
+	{{ number }}
+</div>
+</script>
+
+<script id="player" type="text/html">
+<div id="player-{{ name.toLowerCase }}" class="player">
+	<strong>{{ name }}</strong>
 </div>
 </script>
 
 <script>
 $(function () {
 
-	var deck = new Stacked.Model.Deck({
-		type: 'Spanish',
-		decks: 2
+	var game = new Stacked.View.Game ({
+		model: new Stacked.Model.Game({
+			deck: new Stacked.Model.Deck({
+				type: 'Spanish',
+				decks: 2
+			}),
+			players: new Stacked.Collection.Players([
+				{ name: 'Nanda'},
+				{ name: 'Patricia' },
+				{ name: 'Holden' }
+			])
+		})
 	});
 
-	//deck.shuffle();
-
-	deck.get('cards').each(function(card) {
-		(new Stacked.View.Card({ el: '#stacked', model: card })).render();
-	});
+	game.render('#stacked')
 
 });
 </script>
