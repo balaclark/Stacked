@@ -20,7 +20,7 @@ var Stacked = { Type: {}, Deck: null };
 	});
 
 	Stacked.Card = Backbone.Model.extend({
-		defualts: {
+		defaults: {
 			type: '',
 			suite: '',
 			number: 0
@@ -49,7 +49,7 @@ var Stacked = { Type: {}, Deck: null };
 			for (var i = 0; i < this.get('decks'); i++) {
 				_.each(set.get('suites'), function (suite) {
 					_.each(set.get('cards'), function (card) {
-						cards.add({ type: type, suite: suite, card: card});
+						cards.add({ type: type, suite: suite, card: card });
 					});
 				});
 			}
