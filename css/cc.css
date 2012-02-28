@@ -3,30 +3,44 @@ body {
 	background-color: black;
 }
 
-strong {
+h4 {
 	color: white;
+	margin: .5em 0;
 }
 
 .game {
 	font-size: 8px;
 }
 
-.game ul {
+.game .hand {
 	margin: 0;
 	padding: 0;
+	display: inline-block;
 }
 
-.game .card {
+.game .card,
+.game .card-drop-target {
 	display: inline-block;
 	width: 25px;
 	border-radius: 3px;
 	margin: 3px;
 	padding: 10px 0;
 	text-align: center;
+	border: solid 2px transparent;
+}
+
+.game .card-drop-target {
+	background-color: transparent;
+	border-style: dashed;
+	border-color: orange;
+}
+
+.game .card-drop-target:after {
+	content: "&nbsp;";
 }
 
 .game.spanish .card.cups {
-	background-color: grey;
+	background-color: gray;
 }
 
 .game.spanish .card.clubs {

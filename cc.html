@@ -18,14 +18,19 @@
 <script src="js/cc.js"></script>
 
 <script id="card" type="text/html">
-<li class="card {{ suit }} num-{{ value }} {{ value }}-{{ suit }}">
+<li
+	id="{{ id }}"
+	class="card {{ suit }} num-{{ value }} {{ value }}-{{ suit }}"
+	data-suit="{{ suit }}"
+	data-value="{{ value }}"
+>
 	{{ value }}
 </li>
 </script>
 
 <script id="player" type="text/html">
 <div id="player-{{ name.toLowerCase }}" class="player">
-	<strong>{{ name }}</strong>
+	<h4 class="name">{{ name }}</h4 class="name">
 </div>
 </script>
 

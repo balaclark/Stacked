@@ -161,7 +161,12 @@ Stacked.Collection = {};
 	Stacked.View.Card = Backbone.View.extend({
 
 	 	render: function () {
-	 		this.$el.append(ich.card(this.model.toJSON()));
+
+	 		var data = this.model.toJSON();
+
+	 		data.id = data.id || this.model.cid;
+
+	 		this.$el.append(ich.card(data));
 	 	}
 
 	});
@@ -178,6 +183,14 @@ Stacked.Collection = {};
 			this.model.each(function (card) {
 				(new Stacked.View.Card({ el: el, model: card })).render();
 			});
+
+			this.$el.sortable({
+				axis: 'x',
+				cursor: 'move',
+				placeholder: 'card-drop-target',
+				tolerance: 'pointer',
+				containment: 'parent'
+			});
 	 	}
 	});
 
@@ -192,7 +205,7 @@ Stacked.Collection = {};
 			hand.render();
 
 			html = $(ich.player(this.model.toJSON()));
-			$('strong', html).after(hand.el);
+			$('.name', html).after(hand.el);
 
 			this.$el.append(html);
 		}
