@@ -125,12 +125,22 @@ Stacked.Collection = {};
 			this.deal();
 		},
 
+		reset: function () {
+
+			this.get('deck').replenish();
+
+			this.get('players').forEach(function (player) {
+				player.get('hand').reset();
+			});
+		},
+
 		deal: function () {
 
 			var i = 0,
 				deck = this.get('deck');
 
-			deck.replenish();
+			this.reset();
+
 			deck.shuffle();
 
 			while (i < this.get('cards')) {
@@ -209,6 +219,7 @@ Stacked.Collection = {};
 			});
 			$(this.options.parentEl).html(this.el);
 		}
+
 	});
 
 }) (jQuery);
