@@ -7,11 +7,16 @@ strong {
 	color: white;
 }
 
-#stacked {
+.game {
 	font-size: 8px;
 }
 
-#stacked .card {
+.game ul {
+	margin: 0;
+	padding: 0;
+}
+
+.game .card {
 	display: inline-block;
 	width: 25px;
 	border-radius: 3px;
@@ -20,18 +25,18 @@ strong {
 	text-align: center;
 }
 
-.spanish .card.cups {
+.game.spanish .card.cups {
 	background-color: grey;
 }
 
-.spanish .card.clubs {
+.game.spanish .card.clubs {
 	background-color: green;
 }
 
-.spanish .card.coins {
+.game.spanish .card.coins {
 	background-color: gold;
 }
 
-.spanish .card.swords {
+.game.spanish .card.swords {
 	background-color: blue;
 }

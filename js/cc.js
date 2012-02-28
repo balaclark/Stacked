@@ -168,7 +168,7 @@ Stacked.Collection = {};
 
 	Stacked.View.Hand = Backbone.View.extend({
 
-		tagName: 'div',
+		tagName: 'ul',
 		className: 'hand',
 
 	 	render: function () {
