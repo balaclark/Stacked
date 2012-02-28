@@ -159,9 +159,11 @@ Stacked.Collection = {};
 	 */
 
 	Stacked.View.Card = Backbone.View.extend({
+
 	 	render: function () {
 	 		this.$el.append(ich.card(this.model.toJSON()));
 	 	}
+
 	});
 
 	Stacked.View.Hand = Backbone.View.extend({
@@ -204,6 +206,8 @@ Stacked.Collection = {};
 
 			var el = this.el,
 				players = [];
+
+			this.$el.addClass(this.model.get('deck').get('type').toLowerCase() + ' game');
 
 			this.model.get('players').each(function (player) {
 				players.push(new Stacked.View.Player({ el: el, model: player }));

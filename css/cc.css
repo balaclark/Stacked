@@ -20,18 +20,18 @@ strong {
 	text-align: center;
 }
 
-.spanish.card.cups {
+.spanish .card.cups {
 	background-color: grey;
 }
 
-.spanish.card.clubs {
+.spanish .card.clubs {
 	background-color: green;
 }
 
-.spanish.card.coins {
+.spanish .card.coins {
 	background-color: gold;
 }
 
-.spanish.card.swords {
+.spanish .card.swords {
 	background-color: blue;
 }
