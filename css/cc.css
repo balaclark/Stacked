@@ -73,14 +73,18 @@ h4 {
 	content: ".";
 }
 
-.game.spanish .card.cups {
+.game.spanish .card.cups .type {
+	color: red;
 }
 
-.game.spanish .card.clubs {
+.game.spanish .card.clubs .type {
+	color: green;
 }
 
-.game.spanish .card.coins {
+.game.spanish .card.coins .type {
+	color: yellow;
 }
 
-.game.spanish .card.swords {
+.game.spanish .card.swords .type {
+	color: blue;
 }
