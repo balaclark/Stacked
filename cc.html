@@ -24,7 +24,11 @@
 	data-suit="{{ suit }}"
 	data-value="{{ value }}"
 >
-	{{ value }}
+	<div>
+		<div class="value">{{ value }}</div>
+		<div class="type">{{ suit }}</div>
+		<div class="value">{{ value }}</div>
+	</div>
 </li>
 </script>
 
@@ -50,8 +54,6 @@ $(function () {
 				decks: 2
 			}),
 			players: new Stacked.Collection.Players([
-				{ name: 'Nanda'},
-				{ name: 'Patricia' },
 				{ name: 'Holden' }
 			])
 		})

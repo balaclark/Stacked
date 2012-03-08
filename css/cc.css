@@ -1,15 +1,17 @@
 
 body {
-	background-color: black;
+	background-color: #eee;
 }
 
 h4 {
-	color: white;
 	margin: .5em 0;
 }
 
 .game {
-	font-size: 8px;
+	font-size: 16px;
+	font-family: "Times New Roman", serif;
+	color: #111;
+	text-align: center;
 }
 
 .game .hand {
@@ -21,36 +23,64 @@ h4 {
 .game .card,
 .game .card-drop-target {
 	display: inline-block;
-	width: 25px;
-	border-radius: 3px;
+	width: 140px;
+	height: 240px;
+	background-color: #fff;
+	border-radius: 8px;
 	margin: 3px;
-	padding: 10px 0;
+	padding: 10px;
 	text-align: center;
-	border: solid 2px transparent;
+}
+
+.game .card {
+	box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.game .card > div {
+	border-radius: 5px;
+	border: solid 1px #bcbcbc;
+	height: 100%;
+	position: relative;
+}
+
+.game .card .value,
+.game .card .type {
+	padding: 5px;
+}
+
+.game .card .value {
+	position: absolute;
+}
+
+.game .card .type {
+	padding: 75% 0;
+}
+
+.game .card .value:first-child {
+	text-align: left;
+}
+
+.game .card .value:last-child {
+	bottom: 0;
+	right: 0;
 }
 
 .game .card-drop-target {
 	background-color: transparent;
-	border-style: dashed;
-	border-color: orange;
 }
 
 .game .card-drop-target:after {
-	content: "&nbsp;";
+	content: ".";
 }
 
 .game.spanish .card.cups {
-	background-color: gray;
 }
 
 .game.spanish .card.clubs {
-	background-color: green;
 }
 
 .game.spanish .card.coins {
-	background-color: gold;
 }
 
 .game.spanish .card.swords {
-	background-color: blue;
 }
