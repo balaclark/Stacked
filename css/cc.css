@@ -1,15 +1,10 @@
 
-body {
-	background-color: black;
-}
-
 h4 {
-	color: white;
-	margin: .5em 0;
+	margin: 0.5em 0;
 }
 
 .game {
-	font-size: 8px;
+	font-size: 14px;
 }
 
 .game .hand {
@@ -21,10 +16,11 @@ h4 {
 .game .card,
 .game .card-drop-target {
 	display: inline-block;
-	width: 25px;
+	width: 64px;
+	height: 85px;
+	line-height: 85px;
 	border-radius: 3px;
 	margin: 3px;
-	padding: 10px 0;
 	text-align: center;
 	border: solid 2px transparent;
 }
@@ -36,7 +32,7 @@ h4 {
 }
 
 .game .card-drop-target:after {
-	content: "&nbsp;";
+	content: '\a0';
 }
 
 .game.spanish .card.cups {
