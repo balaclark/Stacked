@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Stacked Test Runner</title>
+
+  <link rel="stylesheet" type="text/css" href="lib/mocha-1.18.2/mocha.css">
+</head>
+<body>
+
+  <div id="mocha"></div>
+
+  <script src="../js/lib/jquery-1.7.1.min.js"></script>
+
+  <script type="text/javascript" src="../node_modules/should/should.js"></script>
+  <script type="text/javascript" src="lib/mocha-1.18.2/mocha.js"></script>
+  <script>mocha.setup('bdd')</script>
+
+  <!-- include source files here... -->
+  <script src="../js/lib/json2.js"></script>
+  <script src="../js/lib/underscore-min.js"></script>
+  <script src="../js/lib/backbone-min.js"></script>
+  <script src="../js/cc.js"></script>
+  <script src="../js/chinchon.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript" src="spec/ChinChon.js"></script>
+
+  <script>
+    mocha.checkLeaks();
+    mocha.globals(['jQuery', 'Backbone', '_', 'Stacked']);
+    if (window.mochaPhantomJS) {
+      mochaPhantomJS.run();
+    } else {
+      mocha.run();
+    }
+  </script>
+</body>
+</html>

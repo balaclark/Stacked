@@ -9,13 +9,16 @@
 
 <div id="stacked"></div>
 
+<button type="button" id="score">score</button>
+
 <script src="js/lib/jquery-1.7.1.min.js"></script>
 <script src="js/lib/jquery-ui-1.8.18.custom.min.js"></script>
 <script src="js/lib/json2.js"></script>
-<script src="js/lib/underscore.js"></script>
+<script src="js/lib/underscore-min.js"></script>
 <script src="js/lib/backbone-min.js"></script>
 <script src="js/lib/ICanHaz.min.js"></script>
 <script src="js/cc.js"></script>
+<script src="js/chinchon.js"></script>
 
 <script id="card" type="text/html">
 <li
@@ -40,24 +43,18 @@ var game;
 
 $(function () {
 
-	game = new Stacked.View.Game ({
-
+	game = new ChinChon({
 		parentEl: '#stacked',
-
-		model: new Stacked.Model.Game({
-			deck: new Stacked.Model.Deck({
-				type: 'Spanish',
-				decks: 2
-			}),
-			players: new Stacked.Collection.Players([
-				{ name: 'Nanda'},
-				{ name: 'Patricia' },
-				{ name: 'Holden' }
-			])
-		})
+		players: [
+			{ name: 'Nanda' },
+			{ name: 'Patricia' },
+			{ name: 'Holden' }
+		]
 	});
 
 	game.render();
+
+	$('#score').on('click', game.score.bind(game));
 
 });
 </script>

@@ -1,0 +1,33 @@
+{
+  "name": "Stacked",
+  "version": "0.0.1",
+  "description": "Javascript card game framework.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "browserify": "^3.44.2",
+    "gulp": "^3.6.2",
+    "gulp-mocha-phantomjs": "^0.1.5",
+    "should": "^3.3.1"
+  },
+  "scripts": {
+    "test": "./node_modules/gulp/bin/gulp.js test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/balaclark/Stacked.git"
+  },
+  "keywords": [
+    "javascript",
+    "card",
+    "game"
+  ],
+  "author": "Bala Clark <balaclark@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/balaclark/Stacked/issues"
+  },
+  "homepage": "https://github.com/balaclark/Stacked"
+}

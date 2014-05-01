@@ -1,3 +1,4 @@
+'use strict';
 
 var Stacked = {};
 
@@ -6,8 +7,6 @@ Stacked.View = {};
 Stacked.Collection = {};
 
 (function ($) {
-
-	'use strict';
 
 	/*
 	 * Models
@@ -100,6 +99,87 @@ Stacked.Collection = {};
 			$.each(values, _.bind(function (key, attributes) {
 				this.at(key).set(attributes);
 			}, this));
+		},
+
+		grouped: function () {
+
+			var group;
+			var grouped = [];
+			var hand = this.toJSON();
+
+			var validLadder = function (values) {
+
+				var prev = values[0] - 1;
+				var valid = [];
+
+				// TODO: move this into the Game object
+				var SEQUENCE = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 10: 8, 11: 9, 12: 10 };
+
+				values.forEach(function (value) {
+					value = SEQUENCE[value];
+					if (value === prev + 1) {
+						valid.push(value)
+					} else {
+
+					}
+					prev = value;
+				});
+
+				return valid.length >= 3;
+			};
+
+			/**
+			 * Returns the largest valid group of cards from a given set of cards.
+			 * @param  {array} data
+			 * @return {array}
+			 */
+			var getLargestGroup = function (data) {
+
+				var max;
+				var suits = [];
+				var values = [];
+				var groups = [];
+
+				suits = _.groupBy(data, 'suit');
+
+				_.each(suits, function (group, suit) {
+					var values = _.sortBy(_.pluck(group, 'value'), function (v) { return v; });
+					if (validLadder(values)) {
+						groups.push(group);
+					}
+				});
+
+				_.each(_.groupBy(data, 'value'), function (group) {
+					groups.push(group);
+				});
+
+				groups = _.sortBy(groups, 'length').reverse();
+
+				return _.max(groups, function (group) {
+					return group.length;
+				});
+			};
+
+			/**
+			 * Removes a group of cards from a given set.
+			 * @param  {array} data
+			 * @param  {array} group
+			 * @return {array}
+			 */
+			var filterGroup = function (data, group) {
+				return _.filter(data, function (card) {
+					return !_.findWhere(group, card);
+				});
+			};
+
+			// re-arranges the hand by its largest set of valid groups
+			while (hand.length) {
+				group = getLargestGroup(hand);
+				grouped.push(group);
+				hand = filterGroup(hand, group)
+			}
+
+			return grouped;
 		}
 	});
 
@@ -280,7 +360,13 @@ Stacked.Collection = {};
 				player.render();
 			});
 			$(this.options.parentEl).html(this.el);
+		},
+
+		score: function () {
+			// abstract method
 		}
+
+		// TODO: addPlayer method, allow game to be initialised without any players
 
 	});
 
