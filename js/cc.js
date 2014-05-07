@@ -105,38 +105,37 @@ Stacked.Collection = {};
 
 			var group;
 			var grouped = [];
+			var group_index = 0;
 			var hand = this.toJSON();
 
-			var getLadder = function (values) {
+			// TODO: move all these functions to a separate module
+			var mapSequence = function (sequence, map) {
+				return sequence.map(function (num) {
+					return map[num];
+				});
+			}
 
-				var last = values.length - 1;
-				var ladder = [];
+			var groupSequence = function (sequence) {
 
-				// TODO: move this into the Game object
-				var SEQUENCE = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 10: 8, 11: 9, 12: 10 };
+				var grouped = [[]]
+					, group_index = 0
+					, next_num_follows_sequence
+					, is_last_of_sequence;
 
-        // a single value ladder doesn't make sense
-        if (values.length < 2) {
-          return values;
-        }
+				sequence.forEach(function (num, i) {
 
-				values.forEach(function (value, i) {
+					next_num_follows_sequence = !(i === sequence.length - 1);
+					is_last_of_sequence = !(num === sequence[i+1] - 1);
 
-          var current = SEQUENCE[value];
-          var next = SEQUENCE[values[i + 1]];
-          var prev = SEQUENCE[values[i - 1]];
+					grouped[group_index].push(num);
 
-          if (
-            // last value
-            (i === last && (current - 1) === prev) ||
-            // all other values
-            (i !== last && ((current + 1) === next))
-          ) {
-            ladder.push(value);
-          }
+					if (next_num_follows_sequence && is_last_of_sequence) {
+						group_index++;
+						grouped[group_index] = [];
+					}
 				});
 
-				return ladder;
+				return grouped;
 			};
 
 			/**
@@ -146,24 +145,35 @@ Stacked.Collection = {};
 			 */
 			var getLargestGroup = function (data) {
 
+				// FIXME: the sequence should be set per hand type
+				var SEQUENCE = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 10: 8, 11: 9, 12: 10 };
 				var groups = [];
 				var suits = _.groupBy(data, 'suit');
 
 				_.each(suits, function (group) {
 
 					var values = _.sortBy(_.pluck(group, 'value'), function (v) { return v; });
+					var mappedValues = mapSequence(values, SEQUENCE);
+					var ladders = groupSequence(mappedValues);
 
-          //while (values.length) {
-            var ladder = getLadder(values);
-            values = _.filter(values, function (value) {
-              return ladder.indexOf(value) === -1;
-            });
-console.log(values, ladder)
-          //}
-//
-//					if (validLadder(values)) {
-//						groups.push(group);
-//					}
+					ladders = ladders.map(function (ladder) {
+						return ladder.map(function (num) {
+							return (_.invert(SEQUENCE))[num];
+						});
+					});
+
+					ladders.forEach(function (ladder) {
+
+						var cards = _.filter(group, function (card) {
+							return ladder.indexOf(card.value+'') > -1;
+						});
+
+						groups.push(cards);
+
+						values = _.filter(values, function (value) {
+							return ladder.indexOf(value) === -1;
+						});
+					});
 				});
 
 				_.each(_.groupBy(data, 'value'), function (group) {
@@ -268,14 +278,14 @@ console.log(values, ladder)
 			'change': 'render'
 		},
 
-	 	render: function () {
+		render: function () {
 
-	 		var data = this.model.toJSON();
+			var data = this.model.toJSON();
 
-	 		data.cid = this.model.cid;
+			data.cid = this.model.cid;
 
-	 		this.$el.append(ich.card(data));
-	 	}
+			this.$el.append(ich.card(data));
+		}
 
 	});
 
@@ -303,11 +313,11 @@ console.log(values, ladder)
 			this.cards = cards;
 		},
 
-	 	render: function (ddd) {
+		render: function (ddd) {
 
-	 		var el = this.el;
+			var el = this.el;
 
-	 		this.$el.empty();
+			this.$el.empty();
 
 			_.each(this.cards, function (card) {
 				card.render();
@@ -320,20 +330,20 @@ console.log(values, ladder)
 				tolerance: 'pointer',
 				containment: 'parent'
 			});
-	 	},
+		},
 
-	 	reorder: function (event, ui) {
+		reorder: function (event, ui) {
 
-	 		var values = [];
+			var values = [];
 
-	 		this.$('.card').each(function (i, elm) {
-	 			values.push($(elm).data());
-	 		});
+			this.$('.card').each(function (i, elm) {
+				values.push($(elm).data());
+			});
 
-	 		this.model.updateValues(values);
+			this.model.updateValues(values);
 
-	 		this.render();
-	 	}
+			this.render();
+		}
 	});
 
 	Stacked.View.Player = Backbone.View.extend({
@@ -356,14 +366,14 @@ console.log(values, ladder)
 	Stacked.View.Game = Backbone.View.extend({
 
 		players: [],
-    options: {},
+		options: {},
 
 		initialize: function (options) {
 
 			var el = this.el,
 				players = [];
 
-      this.options = options;
+			this.options = options;
 
 			this.$el.addClass(this.model.get('deck').get('type').toLowerCase() + ' game');
 

@@ -36,7 +36,6 @@ var ChinChon = Stacked.View.Game.extend({
       // remove any valid groups from the hand and count the values of the ones
       // that are left
       default:
-          console.log(grouped)
         return _.chain(grouped)
           .filter(function (group) {
             return group.length < 3;

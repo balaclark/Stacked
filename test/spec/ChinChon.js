@@ -150,13 +150,13 @@ describe('CC', function () {
         { type: 'Spanish', suit: 'coins', value: 11 }
       ]);
 
-//      ChinChon.prototype.scoreHand(hand1).should.eql(15);
-//      ChinChon.prototype.scoreHand(hand2).should.eql(19);
-//      ChinChon.prototype.scoreHand(hand3).should.eql(28);
-//      ChinChon.prototype.scoreHand(hand4).should.eql(4);
-//      ChinChon.prototype.scoreHand(hand5).should.eql(11);
-      //ChinChon.prototype.scoreHand(hand6).should.eql(20);
-        ChinChon.prototype.scoreHand(hand7).should.eql(12);
+      ChinChon.prototype.scoreHand(hand1).should.eql(15);
+      ChinChon.prototype.scoreHand(hand2).should.eql(19);
+      ChinChon.prototype.scoreHand(hand3).should.eql(28);
+      ChinChon.prototype.scoreHand(hand4).should.eql(4);
+      ChinChon.prototype.scoreHand(hand5).should.eql(11);
+      ChinChon.prototype.scoreHand(hand6).should.eql(20);
+      ChinChon.prototype.scoreHand(hand7).should.eql(12);
     });
   });
 
