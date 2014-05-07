@@ -15,19 +15,18 @@ var ChinChon = Stacked.View.Game.extend({
       players: new Stacked.Collection.Players(options.players)
     });
 
-    Stacked.View.Game.prototype.initialize.call(this);
+    Stacked.View.Game.prototype.initialize.call(this, options);
   },
 
-  // score: function (cb) {
-  //   this.model.get('players').each(function (player) {
-  //     console.log(player.get('name'), player.get('hand').toJSON());
-  //     cb();
-  //   });
-  // },
+  score: function (cb) {
+     this.model.get('players').each(function (player) {
+       console.log(player.get('name'), this.scoreHand(player.get('hand')));
+       //cb();
+     }, this);
+  },
 
   scoreHand: function (hand) {
 
-    var score, losers;
     var grouped = hand.grouped();
 
     switch (grouped.length) {
@@ -37,6 +36,7 @@ var ChinChon = Stacked.View.Game.extend({
       // remove any valid groups from the hand and count the values of the ones
       // that are left
       default:
+          console.log(grouped)
         return _.chain(grouped)
           .filter(function (group) {
             return group.length < 3;
@@ -48,7 +48,5 @@ var ChinChon = Stacked.View.Game.extend({
           }, 0)
           .value();
     }
-
-    return score;
   }
 });

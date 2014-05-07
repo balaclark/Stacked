@@ -130,11 +130,33 @@ describe('CC', function () {
         { type: 'Spanish', suit: 'swords', value: 11 }
       ]);
 
-      ChinChon.prototype.scoreHand(hand1).should.eql(15);
-      ChinChon.prototype.scoreHand(hand2).should.eql(19);
-      ChinChon.prototype.scoreHand(hand3).should.eql(28);
-      ChinChon.prototype.scoreHand(hand4).should.eql(4);
-      ChinChon.prototype.scoreHand(hand5).should.eql(11);
+      var hand6 = new Stacked.Collection.Hand([
+        { type: 'Spanish', suit: 'coins', value: 2 },
+        { type: 'Spanish', suit: 'coins', value: 6 },
+        { type: 'Spanish', suit: 'coins', value: 7 },
+        { type: 'Spanish', suit: 'coins', value: 10 },
+        { type: 'Spanish', suit: 'swords', value: 11 },
+        { type: 'Spanish', suit: 'cups', value: 1 },
+        { type: 'Spanish', suit: 'clubs', value: 6 }
+      ]);
+
+      var hand7 = new Stacked.Collection.Hand([
+        { type: 'Spanish', suit: 'coins', value: 1 },
+        { type: 'Spanish', suit: 'coins', value: 2 },
+        { type: 'Spanish', suit: 'coins', value: 4 },
+        { type: 'Spanish', suit: 'coins', value: 5 },
+        { type: 'Spanish', suit: 'coins', value: 7 },
+        { type: 'Spanish', suit: 'coins', value: 10 },
+        { type: 'Spanish', suit: 'coins', value: 11 }
+      ]);
+
+//      ChinChon.prototype.scoreHand(hand1).should.eql(15);
+//      ChinChon.prototype.scoreHand(hand2).should.eql(19);
+//      ChinChon.prototype.scoreHand(hand3).should.eql(28);
+//      ChinChon.prototype.scoreHand(hand4).should.eql(4);
+//      ChinChon.prototype.scoreHand(hand5).should.eql(11);
+      //ChinChon.prototype.scoreHand(hand6).should.eql(20);
+        ChinChon.prototype.scoreHand(hand7).should.eql(12);
     });
   });
 
