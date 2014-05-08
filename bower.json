@@ -1,0 +1,25 @@
+{
+  "name": "Stacked",
+  "version": "0.0.1",
+  "homepage": "https://github.com/balaclark/Stacked",
+  "authors": [
+    "Bala Clark <balaclark@gmail.com>"
+  ],
+  "description": "Card game framework.",
+  "main": "dist/stacked.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "jquery-ui": "~1.10.4",
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.2"
+  }
+}

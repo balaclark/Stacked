@@ -17,18 +17,18 @@
 
 <script id="card" type="text/html">
 <li
-	id="{{ cid }}"
-	class="card {{ suit }} num-{{ value }} {{ value }}-{{ suit }}"
-	data-suit="{{ suit }}"
-	data-value="{{ value }}"
+	id="<%= cid %>"
+	class="card <%= suit %> num-<%= value %> <%= value %>-<%= suit %>"
+	data-suit="<%= suit %>"
+	data-value="<%= value %>"
 >
-	{{ value }}
+	<%= value %>
 </li>
 </script>
 
 <script id="player" type="text/html">
-<div id="player-{{ name.toLowerCase }}" class="player">
-	<h4 class="name">{{ name }}</h4 class="name">
+<div id="player-<%= name.toLowerCase %>" class="player">
+	<h4 class="name"><%= name %></h4 class="name">
 </div>
 </script>
 

@@ -16,12 +16,12 @@ var paths = {
     './src/js/stacked/view/**/*.js'
   ],
   deps: [
-    './src/js/lib/json2.js',
-    './src/js/lib/jquery-1.7.1.min.js',
-    './src/js/lib/jquery-ui-1.8.18.custom.min.js',
-    './src/js/lib/underscore.js',
-    './src/js/lib/backbone.js',
-    './src/js/lib/ICanHaz.min.js'
+    './bower_components/jquery/dist/jquery.js',
+    './bower_components/jquery-ui/ui/jquery-ui.js',
+    './bower_components/jquery-ui/ui/jquery.ui.draggable.js',
+    './bower_components/jquery-ui/ui/jquery.ui.droppable.js',
+    './bower_components/underscore/underscore.js',
+    './bower_components/backbone/backbone.js'
   ],
   tests: ['./test/spec/*.js']
 }

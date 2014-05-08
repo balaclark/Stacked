@@ -5,13 +5,17 @@ Stacked.View.Card = Backbone.View.extend({
     'change': 'render'
   },
 
+  template: function (data) {
+    return _.template($('#card').text(), data);
+  },
+
   render: function () {
 
     var data = this.model.toJSON();
 
     data.cid = this.model.cid;
 
-    this.$el.append(ich.card(data));
+    this.$el.append(this.template(data));
   }
 
 });

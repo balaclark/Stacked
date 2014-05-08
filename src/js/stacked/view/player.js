@@ -1,6 +1,10 @@
 
 Stacked.View.Player = Backbone.View.extend({
 
+  template: function (data) {
+    return _.template($('#player').text(), data);
+  },
+
   render: function () {
 
     var html, hand = new Stacked.View.Hand({
@@ -9,7 +13,7 @@ Stacked.View.Player = Backbone.View.extend({
 
     hand.render();
 
-    html = $(ich.player(this.model.toJSON()));
+    html = $(this.template(this.model.toJSON()));
     $('.name', html).after(hand.el);
 
     this.$el.append(html);

@@ -2,7 +2,6 @@
 
 # Packaging
 
-* Use a package manager for all frontend deps (bower / browserify?)
 * code coverage
 * jshint
 * concat & minify css

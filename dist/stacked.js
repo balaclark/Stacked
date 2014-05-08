@@ -283,13 +283,17 @@ Stacked.View.Card = Backbone.View.extend({
     'change': 'render'
   },
 
+  template: function (data) {
+    return _.template($('#card').text(), data);
+  },
+
   render: function () {
 
     var data = this.model.toJSON();
 
     data.cid = this.model.cid;
 
-    this.$el.append(ich.card(data));
+    this.$el.append(this.template(data));
   }
 
 });
@@ -394,6 +398,10 @@ Stacked.View.Hand = Backbone.View.extend({
 
 Stacked.View.Player = Backbone.View.extend({
 
+  template: function (data) {
+    return _.template($('#player').text(), data);
+  },
+
   render: function () {
 
     var html, hand = new Stacked.View.Hand({
@@ -402,7 +410,7 @@ Stacked.View.Player = Backbone.View.extend({
 
     hand.render();
 
-    html = $(ich.player(this.model.toJSON()));
+    html = $(this.template(this.model.toJSON()));
     $('.name', html).after(hand.el);
 
     this.$el.append(html);
