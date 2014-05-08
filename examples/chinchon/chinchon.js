@@ -46,7 +46,7 @@ var ChinChon = (function (Stacked) {
             .flatten()
             .pluck('value')
             .reduce(function (memo, val) {
-              return memo + val;
+              return memo + Number(val);
             }, 0)
             .value();
       }

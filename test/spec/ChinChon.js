@@ -160,6 +160,21 @@ describe('CC', function () {
       ChinChon.prototype.scoreHand(hand6).should.eql(20);
       ChinChon.prototype.scoreHand(hand7).should.eql(12);
     });
+
+    it('allows numbers to be passed as strings', function () {
+
+      var hand = new Stacked.Collection.Hand([
+        { type: type, suit: 'clubs', value: 1 },
+        { type: type, suit: 'clubs', value: '2' },
+        { type: type, suit: 'clubs', value: 3 },
+        { type: type, suit: 'clubs', value: '4' },
+        { type: type, suit: 'coins', value: '1' },
+        { type: type, suit: 'coins', value: '3' },
+        { type: type, suit: 'coins', value: 11 }
+      ]);
+
+      ChinChon.prototype.scoreHand(hand).should.eql(15);
+    });
   });
 
 });
