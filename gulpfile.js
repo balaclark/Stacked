@@ -10,7 +10,8 @@ var mochaPhantomJS = require('gulp-mocha-phantomjs');
 var paths = {
   scripts: [
     './src/js/stacked.js',
-    './src/js/stacked/model/**/*.js',
+    './src/js/stacked/model/type/*.js',
+    './src/js/stacked/model/*.js',
     './src/js/stacked/collection/**/*.js',
     './src/js/stacked/view/**/*.js'
   ],
@@ -35,7 +36,7 @@ gulp.task('clean', function () {
     .pipe(clean());
 })
 
-gulp.task('scripts', ['clean'], function () {
+gulp.task('scripts', function () {
 
   gulp.src(paths.deps)
     .pipe(concat('dependencies.min.js', { newLine: '\n\n' }))
@@ -63,4 +64,4 @@ gulp.task('watch', function () {
   gulp.watch([].concat(paths.scripts, paths.tests), ['test']);
 });
 
-gulp.task('default', ['scripts', 'test', 'watch']);
+gulp.task('default', ['scripts', 'test']);
