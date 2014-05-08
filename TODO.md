@@ -3,10 +3,11 @@
 # Packaging
 
 * Use a package manager for all frontend deps (bower / browserify?)
-* Split lib into separate files and use browserify to load them
-* Create a concatenated version for distribution
 * code coverage
-* tabs -> 2 spaces
+* jshint
+* concat & minify css
+* use a css preprocessor
+* only compile if files have changed
 
 # Frontend
 
