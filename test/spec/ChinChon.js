@@ -2,28 +2,30 @@
 
 describe('CC', function () {
 
+  var type = Stacked.Model.Type.Spanish;
+
   describe('Score a hand', function () {
 
     it('chinchon', function () {
 
       var hand1 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'clubs', value: 1 },
-        { type: 'Spanish', suit: 'clubs', value: 2 },
-        { type: 'Spanish', suit: 'clubs', value: 3 },
-        { type: 'Spanish', suit: 'clubs', value: 4 },
-        { type: 'Spanish', suit: 'clubs', value: 5 },
-        { type: 'Spanish', suit: 'clubs', value: 6 },
-        { type: 'Spanish', suit: 'clubs', value: 7 }
+        { type: type, suit: 'clubs', value: 1 },
+        { type: type, suit: 'clubs', value: 2 },
+        { type: type, suit: 'clubs', value: 3 },
+        { type: type, suit: 'clubs', value: 4 },
+        { type: type, suit: 'clubs', value: 5 },
+        { type: type, suit: 'clubs', value: 6 },
+        { type: type, suit: 'clubs', value: 7 }
       ]);
 
       var hand2 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'coins', value: 4 },
-        { type: 'Spanish', suit: 'coins', value: 5 },
-        { type: 'Spanish', suit: 'coins', value: 6 },
-        { type: 'Spanish', suit: 'coins', value: 7 },
-        { type: 'Spanish', suit: 'coins', value: 10 },
-        { type: 'Spanish', suit: 'coins', value: 11 },
-        { type: 'Spanish', suit: 'coins', value: 12 }
+        { type: type, suit: 'coins', value: 4 },
+        { type: type, suit: 'coins', value: 5 },
+        { type: type, suit: 'coins', value: 6 },
+        { type: type, suit: 'coins', value: 7 },
+        { type: type, suit: 'coins', value: 10 },
+        { type: type, suit: 'coins', value: 11 },
+        { type: type, suit: 'coins', value: 12 }
       ]);
 
       ChinChon.prototype.scoreHand(hand1).should.eql(ChinChon.prototype.CHINCHON);
@@ -35,13 +37,13 @@ describe('CC', function () {
       it('single values', function () {
 
         var hand = new Stacked.Collection.Hand([
-          { type: 'Spanish', suit: 'clubs', value: 1 },
-          { type: 'Spanish', suit: 'coins', value: 1 },
-          { type: 'Spanish', suit: 'swords', value: 1 },
-          { type: 'Spanish', suit: 'cups', value: 1 },
-          { type: 'Spanish', suit: 'cups', value: 6 },
-          { type: 'Spanish', suit: 'swords', value: 6 },
-          { type: 'Spanish', suit: 'coins', value: 6 }
+          { type: type, suit: 'clubs', value: 1 },
+          { type: type, suit: 'coins', value: 1 },
+          { type: type, suit: 'swords', value: 1 },
+          { type: type, suit: 'cups', value: 1 },
+          { type: type, suit: 'cups', value: 6 },
+          { type: type, suit: 'swords', value: 6 },
+          { type: type, suit: 'coins', value: 6 }
         ]);
 
         ChinChon.prototype.scoreHand(hand).should.eql(-10);
@@ -50,13 +52,13 @@ describe('CC', function () {
       it('escaleras', function () {
 
         var hand = new Stacked.Collection.Hand([
-          { type: 'Spanish', suit: 'clubs', value: 1 },
-          { type: 'Spanish', suit: 'coins', value: 7 },
-          { type: 'Spanish', suit: 'coins', value: 11 },
-          { type: 'Spanish', suit: 'clubs', value: 2 },
-          { type: 'Spanish', suit: 'clubs', value: 3 },
-          { type: 'Spanish', suit: 'clubs', value: 4 },
-          { type: 'Spanish', suit: 'coins', value: 10 }
+          { type: type, suit: 'clubs', value: 1 },
+          { type: type, suit: 'coins', value: 7 },
+          { type: type, suit: 'coins', value: 11 },
+          { type: type, suit: 'clubs', value: 2 },
+          { type: type, suit: 'clubs', value: 3 },
+          { type: type, suit: 'clubs', value: 4 },
+          { type: type, suit: 'coins', value: 10 }
         ]);
 
         ChinChon.prototype.scoreHand(hand).should.eql(-10);
@@ -65,13 +67,13 @@ describe('CC', function () {
       it('mixed', function () {
 
         var hand = new Stacked.Collection.Hand([
-          { type: 'Spanish', suit: 'clubs', value: 1 },
-          { type: 'Spanish', suit: 'coins', value: 1 },
-          { type: 'Spanish', suit: 'swords', value: 1 },
-          { type: 'Spanish', suit: 'cups', value: 1 },
-          { type: 'Spanish', suit: 'cups', value: 7 },
-          { type: 'Spanish', suit: 'cups', value: 10 },
-          { type: 'Spanish', suit: 'cups', value: 11 }
+          { type: type, suit: 'clubs', value: 1 },
+          { type: type, suit: 'coins', value: 1 },
+          { type: type, suit: 'swords', value: 1 },
+          { type: type, suit: 'cups', value: 1 },
+          { type: type, suit: 'cups', value: 7 },
+          { type: type, suit: 'cups', value: 10 },
+          { type: type, suit: 'cups', value: 11 }
         ]);
 
         ChinChon.prototype.scoreHand(hand).should.eql(-10);
@@ -81,73 +83,73 @@ describe('CC', function () {
     it('counts points', function () {
 
       var hand1 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'clubs', value: 1 },
-        { type: 'Spanish', suit: 'clubs', value: 2 },
-        { type: 'Spanish', suit: 'clubs', value: 3 },
-        { type: 'Spanish', suit: 'clubs', value: 4 },
-        { type: 'Spanish', suit: 'coins', value: 1 },
-        { type: 'Spanish', suit: 'coins', value: 3 },
-        { type: 'Spanish', suit: 'coins', value: 11 }
+        { type: type, suit: 'clubs', value: 1 },
+        { type: type, suit: 'clubs', value: 2 },
+        { type: type, suit: 'clubs', value: 3 },
+        { type: type, suit: 'clubs', value: 4 },
+        { type: type, suit: 'coins', value: 1 },
+        { type: type, suit: 'coins', value: 3 },
+        { type: type, suit: 'coins', value: 11 }
       ]);
 
       var hand2 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'clubs', value: 1 },
-        { type: 'Spanish', suit: 'coins', value: 1 },
-        { type: 'Spanish', suit: 'swords', value: 1 },
-        { type: 'Spanish', suit: 'cups', value: 1 },
-        { type: 'Spanish', suit: 'cups', value: 6 },
-        { type: 'Spanish', suit: 'swords', value: 6 },
-        { type: 'Spanish', suit: 'coins', value: 7 }
+        { type: type, suit: 'clubs', value: 1 },
+        { type: type, suit: 'coins', value: 1 },
+        { type: type, suit: 'swords', value: 1 },
+        { type: type, suit: 'cups', value: 1 },
+        { type: type, suit: 'cups', value: 6 },
+        { type: type, suit: 'swords', value: 6 },
+        { type: type, suit: 'coins', value: 7 }
       ]);
 
       var hand3 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'clubs', value: 1 },
-        { type: 'Spanish', suit: 'coins', value: 2 },
-        { type: 'Spanish', suit: 'coins', value: 3 },
-        { type: 'Spanish', suit: 'cups', value: 4 },
-        { type: 'Spanish', suit: 'swords', value: 5 },
-        { type: 'Spanish', suit: 'swords', value: 6 },
-        { type: 'Spanish', suit: 'coins', value: 7 }
+        { type: type, suit: 'clubs', value: 1 },
+        { type: type, suit: 'coins', value: 2 },
+        { type: type, suit: 'coins', value: 3 },
+        { type: type, suit: 'cups', value: 4 },
+        { type: type, suit: 'swords', value: 5 },
+        { type: type, suit: 'swords', value: 6 },
+        { type: type, suit: 'coins', value: 7 }
       ]);
 
       var hand4 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'coins', value: 1 },
-        { type: 'Spanish', suit: 'coins', value: 2 },
-        { type: 'Spanish', suit: 'coins', value: 3 },
-        { type: 'Spanish', suit: 'cups', value: 4 },
-        { type: 'Spanish', suit: 'swords', value: 5 },
-        { type: 'Spanish', suit: 'swords', value: 6 },
-        { type: 'Spanish', suit: 'swords', value: 7 }
+        { type: type, suit: 'coins', value: 1 },
+        { type: type, suit: 'coins', value: 2 },
+        { type: type, suit: 'coins', value: 3 },
+        { type: type, suit: 'cups', value: 4 },
+        { type: type, suit: 'swords', value: 5 },
+        { type: type, suit: 'swords', value: 6 },
+        { type: type, suit: 'swords', value: 7 }
       ]);
 
       var hand5 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'coins', value: 1 },
-        { type: 'Spanish', suit: 'coins', value: 2 },
-        { type: 'Spanish', suit: 'coins', value: 3 },
-        { type: 'Spanish', suit: 'cups', value: 11 },
-        { type: 'Spanish', suit: 'swords', value: 7 },
-        { type: 'Spanish', suit: 'swords', value: 10 },
-        { type: 'Spanish', suit: 'swords', value: 11 }
+        { type: type, suit: 'coins', value: 1 },
+        { type: type, suit: 'coins', value: 2 },
+        { type: type, suit: 'coins', value: 3 },
+        { type: type, suit: 'cups', value: 11 },
+        { type: type, suit: 'swords', value: 7 },
+        { type: type, suit: 'swords', value: 10 },
+        { type: type, suit: 'swords', value: 11 }
       ]);
 
       var hand6 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'coins', value: 2 },
-        { type: 'Spanish', suit: 'coins', value: 6 },
-        { type: 'Spanish', suit: 'coins', value: 7 },
-        { type: 'Spanish', suit: 'coins', value: 10 },
-        { type: 'Spanish', suit: 'swords', value: 11 },
-        { type: 'Spanish', suit: 'cups', value: 1 },
-        { type: 'Spanish', suit: 'clubs', value: 6 }
+        { type: type, suit: 'coins', value: 2 },
+        { type: type, suit: 'coins', value: 6 },
+        { type: type, suit: 'coins', value: 7 },
+        { type: type, suit: 'coins', value: 10 },
+        { type: type, suit: 'swords', value: 11 },
+        { type: type, suit: 'cups', value: 1 },
+        { type: type, suit: 'clubs', value: 6 }
       ]);
 
       var hand7 = new Stacked.Collection.Hand([
-        { type: 'Spanish', suit: 'coins', value: 1 },
-        { type: 'Spanish', suit: 'coins', value: 2 },
-        { type: 'Spanish', suit: 'coins', value: 4 },
-        { type: 'Spanish', suit: 'coins', value: 5 },
-        { type: 'Spanish', suit: 'coins', value: 7 },
-        { type: 'Spanish', suit: 'coins', value: 10 },
-        { type: 'Spanish', suit: 'coins', value: 11 }
+        { type: type, suit: 'coins', value: 1 },
+        { type: type, suit: 'coins', value: 2 },
+        { type: type, suit: 'coins', value: 4 },
+        { type: type, suit: 'coins', value: 5 },
+        { type: type, suit: 'coins', value: 7 },
+        { type: type, suit: 'coins', value: 10 },
+        { type: type, suit: 'coins', value: 11 }
       ]);
 
       ChinChon.prototype.scoreHand(hand1).should.eql(15);

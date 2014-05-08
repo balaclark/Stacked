@@ -12,7 +12,7 @@ var ChinChon = (function (Stacked) {
 
       this.model = new Stacked.Model.Game({
         deck: new Stacked.Model.Deck({
-          type: 'Spanish',
+          type: Stacked.Model.Type.Spanish,
           decks: 2
         }),
         players: new Stacked.Collection.Players(options.players)

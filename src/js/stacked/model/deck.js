@@ -3,30 +3,26 @@ Stacked.Model.Deck = Backbone.Model.extend({
 
   defaults: {
     decks: 1,
-    type: null,
+    type: Stacked.Model.Type.Base,
     cards: null
   },
 
-  initialize: function () {
-
-    var type = this.get('type'),
-      set = new Stacked.Model.Type[type]();
-
-    this.set({ set: set });
-
+  initialize: function (attributes) {
+    var type = attributes.type || this.get('type');
+    this.set({ set: new type });
     this.replenish();
   },
 
   replenish: function () {
 
     var type = this.get('type'),
-      set = new Stacked.Model.Type[type](),
-      cards = new Stacked.Collection.Cards()
+      set = new type,
+      cards = new Stacked.Collection.Cards();
 
     for (var i = 0; i < this.get('decks'); i++) {
       _.each(set.get('suits'), function (suit) {
-        _.each(set.get('cards'), function (card) {
-          cards.add({ type: type, suit: suit, value: card });
+        _.each(set.get('cards'), function (card, value) {
+          cards.add({ type: type, suit: suit, value: value });
         });
       });
     }

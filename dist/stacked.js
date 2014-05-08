@@ -11,6 +11,24 @@ Stacked = {
 };
 
 
+Stacked.Model.Type.Base = Backbone.Model.extend({
+  defaults: {
+    name: '',
+    cards: [],
+    suits: []
+  }
+});
+
+
+Stacked.Model.Type.Spanish = Stacked.Model.Type.Base.extend({
+  defaults: {
+    name: 'spanish',
+    cards: { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 10: 8, 11: 9, 12: 10 },
+    suits: ['cups', 'clubs', 'coins', 'swords']
+  }
+})
+
+
 Stacked.Model.Card = Backbone.Model.extend({
   defaults: {
     type: '',
@@ -24,30 +42,26 @@ Stacked.Model.Deck = Backbone.Model.extend({
 
   defaults: {
     decks: 1,
-    type: null,
+    type: Stacked.Model.Type.Base,
     cards: null
   },
 
-  initialize: function () {
-
-    var type = this.get('type'),
-      set = new Stacked.Model.Type[type]();
-
-    this.set({ set: set });
-
+  initialize: function (attributes) {
+    var type = attributes.type || this.get('type');
+    this.set({ set: new type });
     this.replenish();
   },
 
   replenish: function () {
 
     var type = this.get('type'),
-      set = new Stacked.Model.Type[type](),
-      cards = new Stacked.Collection.Cards()
+      set = new type,
+      cards = new Stacked.Collection.Cards();
 
     for (var i = 0; i < this.get('decks'); i++) {
       _.each(set.get('suits'), function (suit) {
-        _.each(set.get('cards'), function (card) {
-          cards.add({ type: type, suit: suit, value: card });
+        _.each(set.get('cards'), function (card, value) {
+          cards.add({ type: type, suit: suit, value: value });
         });
       });
     }
@@ -130,22 +144,6 @@ Stacked.Model.Player = Backbone.Model.extend({
 });
 
 
-Stacked.Model.Type.Base = Backbone.Model.extend({
-  defaults: {
-    cards: [],
-    suits: []
-  }
-});
-
-
-Stacked.Model.Type.Spanish = Stacked.Model.Type.Base.extend({
-  defaults: {
-    cards: [1, 2, 3, 4, 5, 6, 7, 10, 11, 12],
-    suits: ['cups', 'clubs', 'coins', 'swords']
-  }
-})
-
-
 Stacked.Collection.Cards = Backbone.Collection.extend({
   model: Stacked.Model.Card
 });
@@ -159,6 +157,10 @@ Stacked.Collection.Hand = Backbone.Collection.extend({
     $.each(values, _.bind(function (key, attributes) {
       this.at(key).set(attributes);
     }, this));
+  },
+
+  getType: function () {
+    return this.first().get('type');
   },
 
   grouped: function () {
@@ -203,22 +205,21 @@ Stacked.Collection.Hand = Backbone.Collection.extend({
      * @param  {array} data
      * @return {array}
      */
-    var getLargestGroup = function (data) {
+    var getLargestGroup = function (data, cardSequence) {
 
       // FIXME: the sequence should be set per hand type
-      var SEQUENCE = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 10: 8, 11: 9, 12: 10 };
       var groups = [];
       var suits = _.groupBy(data, 'suit');
 
       _.each(suits, function (group) {
 
         var values = _.sortBy(_.pluck(group, 'value'), function (v) { return v; });
-        var mappedValues = mapSequence(values, SEQUENCE);
+        var mappedValues = mapSequence(values, cardSequence);
         var ladders = groupSequence(mappedValues);
 
         ladders = ladders.map(function (ladder) {
           return ladder.map(function (num) {
-            return (_.invert(SEQUENCE))[num];
+            return (_.invert(cardSequence))[num];
           });
         });
 
@@ -261,7 +262,7 @@ Stacked.Collection.Hand = Backbone.Collection.extend({
 
     // re-arranges the hand by its largest set of valid groups
     while (hand.length) {
-      group = getLargestGroup(hand);
+      group = getLargestGroup(hand, this.getType().prototype.defaults.cards);
       grouped.push(group);
       hand = filterGroup(hand, group)
     }
@@ -302,11 +303,12 @@ Stacked.View.Game = Backbone.View.extend({
   initialize: function (options) {
 
     var el = this.el,
-      players = [];
+      players = [],
+      type = this.model.get('deck').get('type');
 
     this.options = options;
 
-    this.$el.addClass(this.model.get('deck').get('type').toLowerCase() + ' game');
+    this.$el.addClass(type.prototype.defaults.name + ' game');
 
     this.model.get('players').each(function (player) {
       players.push(new Stacked.View.Player({ el: el, model: player }));

@@ -7,11 +7,12 @@ Stacked.View.Game = Backbone.View.extend({
   initialize: function (options) {
 
     var el = this.el,
-      players = [];
+      players = [],
+      type = this.model.get('deck').get('type');
 
     this.options = options;
 
-    this.$el.addClass(this.model.get('deck').get('type').toLowerCase() + ' game');
+    this.$el.addClass(type.prototype.defaults.name + ' game');
 
     this.model.get('players').each(function (player) {
       players.push(new Stacked.View.Player({ el: el, model: player }));

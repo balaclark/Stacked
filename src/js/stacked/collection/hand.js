@@ -9,6 +9,10 @@ Stacked.Collection.Hand = Backbone.Collection.extend({
     }, this));
   },
 
+  getType: function () {
+    return this.first().get('type');
+  },
+
   grouped: function () {
 
     var group;
@@ -51,22 +55,21 @@ Stacked.Collection.Hand = Backbone.Collection.extend({
      * @param  {array} data
      * @return {array}
      */
-    var getLargestGroup = function (data) {
+    var getLargestGroup = function (data, cardSequence) {
 
       // FIXME: the sequence should be set per hand type
-      var SEQUENCE = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 10: 8, 11: 9, 12: 10 };
       var groups = [];
       var suits = _.groupBy(data, 'suit');
 
       _.each(suits, function (group) {
 
         var values = _.sortBy(_.pluck(group, 'value'), function (v) { return v; });
-        var mappedValues = mapSequence(values, SEQUENCE);
+        var mappedValues = mapSequence(values, cardSequence);
         var ladders = groupSequence(mappedValues);
 
         ladders = ladders.map(function (ladder) {
           return ladder.map(function (num) {
-            return (_.invert(SEQUENCE))[num];
+            return (_.invert(cardSequence))[num];
           });
         });
 
@@ -109,7 +112,7 @@ Stacked.Collection.Hand = Backbone.Collection.extend({
 
     // re-arranges the hand by its largest set of valid groups
     while (hand.length) {
-      group = getLargestGroup(hand);
+      group = getLargestGroup(hand, this.getType().prototype.defaults.cards);
       grouped.push(group);
       hand = filterGroup(hand, group)
     }
